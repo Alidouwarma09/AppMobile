@@ -12,7 +12,7 @@ import {
 import { Avatar, Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import { styles } from './styles';
+import { styles, stylesDark } from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome6Icon from 'react-native-vector-icons/FontAwesome6';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -20,8 +20,10 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import VideoPlayer from 'react-native-video-player';
 const { width } = Dimensions.get('window');
+import { useTheme } from '../../composants/ThemeContext';
 
 const Profile = ({ navigation }) => {
+  const { isDarkMode } = useTheme(); 
     const [user, setUser] = useState({
         username: '',
         email: '',
@@ -71,7 +73,7 @@ const Profile = ({ navigation }) => {
 
     return (
         <ScrollView>
-          <View style={styles.container}>
+          <View style={isDarkMode ? stylesDark.container:styles.container}>
            <View style={styles.profile}>
         <TouchableOpacity
           onPress={() => {
@@ -104,20 +106,21 @@ const Profile = ({ navigation }) => {
            </View>
 
 
-             <View style={styles.tabsContainer}>
-                {['Info', 'Photo', 'Vidéo', 'Paramètres'].map((tab, index) => (
-                    <TouchableOpacity
-                        key={tab}
-                        style={[styles.tabButton, selectedTab === tab && styles.selectedTab]}
-                        onPress={() => handleTabPress(tab, index)}
-                    >
-                        <Text
-                            style={[styles.tabText, selectedTab === tab && styles.selectedTabText]}>
-                            {tab}
-                        </Text>
-                    </TouchableOpacity>
-                ))}
-            </View>
+           <View style={isDarkMode ? stylesDark.tabsContainer : styles.tabsContainer}>
+            {['Info', 'Photo', 'Vidéo', 'Paramètres'].map((tab, index) => (
+              <TouchableOpacity
+                key={tab}
+                style={[styles.tabButton, selectedTab === tab && styles.selectedTab]}
+                onPress={() => handleTabPress(tab, index)}
+              >
+                <Text
+                  style={[styles.tabText, selectedTab === tab && styles.selectedTabText]}>
+                  {tab}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
             <ScrollView
                 ref={scrollViewRef}
                 horizontal
@@ -144,20 +147,23 @@ const Profile = ({ navigation }) => {
     );
 };
 
-const InfoSection = ({ user, form, setForm, handleLogout  }) => (
+const InfoSection = ({  form, setForm, handleLogout }) => {
+  const { isDarkMode, toggleDarkMode } = useTheme();
+
+  return (
     <ScrollView>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Preferences</Text>
+        <View style={isDarkMode ? stylesDark.section:styles.section}>
+          <Text style={ isDarkMode ? styles.sectionTitle:styles.sectionTitle}>Preferences</Text>
 
           <TouchableOpacity
             onPress={() => {
             }}
-            style={styles.row}>
+            style={isDarkMode ? stylesDark.row:styles.row}>
             <View style={[styles.rowIcon, { backgroundColor: '#fe9400' }]}>
               <FeatherIcon color="#fff" name="globe" size={20} />
             </View>
 
-            <Text style={styles.rowLabel}>Langue</Text>
+            <Text style={isDarkMode ? stylesDark.rowLabel:styles.rowLabel}>Langue</Text>
 
             <View style={styles.rowSpacer} />
 
@@ -167,24 +173,25 @@ const InfoSection = ({ user, form, setForm, handleLogout  }) => (
               size={20} />
           </TouchableOpacity>
 
-          <View style={styles.row}>
+          <View style={isDarkMode ? stylesDark.row:styles.row}>
             <View style={[styles.rowIcon, { backgroundColor: '#007afe' }]}>
               <FeatherIcon color="#fff" name="moon" size={20} />
             </View>
 
-            <Text style={styles.rowLabel}>Mode sombre</Text>
+            <Text style={isDarkMode ? stylesDark.rowLabel:styles.rowLabel}>Mode sombre</Text>
 
             <View style={styles.rowSpacer} />
 
             <Switch
-              onValueChange={darkMode => setForm({ ...form, darkMode })}
-              value={form.darkMode} />
+              onValueChange={toggleDarkMode}
+              value={isDarkMode}
+            />
           </View>
 
           <TouchableOpacity
             onPress={() => {
             }}
-            style={styles.row}>
+            style={isDarkMode ? stylesDark.row:styles.row}>
             <View style={[styles.rowIcon, { backgroundColor: '#32c759' }]}>
               <FeatherIcon
                 color="#fff"
@@ -192,7 +199,7 @@ const InfoSection = ({ user, form, setForm, handleLogout  }) => (
                 size={20} />
             </View>
 
-            <Text style={styles.rowLabel}>Localisation</Text>
+            <Text style={isDarkMode ? stylesDark.rowLabel:styles.rowLabel}>Localisation</Text>
 
             <View style={styles.rowSpacer} />
 
@@ -202,28 +209,22 @@ const InfoSection = ({ user, form, setForm, handleLogout  }) => (
               size={20} />
           </TouchableOpacity>
 
-          <View style={styles.row}>
+          <View style={isDarkMode ? stylesDark.row:styles.row}>
             <View style={[styles.rowIcon, { backgroundColor: '#38C959' }]}>
               <FeatherIcon color="#fff" name="at-sign" size={20} />
             </View>
 
-            <Text style={styles.rowLabel}>Notifications Email</Text>
+            <Text style={isDarkMode ? stylesDark.rowLabel:styles.rowLabel}>Notifications Email</Text>
 
             <View style={styles.rowSpacer} />
-
-            <Switch
-              onValueChange={emailNotifications =>
-                setForm({ ...form, emailNotifications })
-              }
-              value={form.emailNotifications} />
           </View>
 
-          <View style={styles.row}>
+          <View style={isDarkMode ? stylesDark.row:styles.row}>
             <View style={[styles.rowIcon, { backgroundColor: '#38C959' }]}>
               <FeatherIcon color="#fff" name="bell" size={20} />
             </View>
 
-            <Text style={styles.rowLabel}>Notifications Push</Text>
+            <Text style={isDarkMode ? stylesDark.rowLabel:styles.rowLabel}>Notifications Push</Text>
 
             <View style={styles.rowSpacer} />
 
@@ -241,12 +242,12 @@ const InfoSection = ({ user, form, setForm, handleLogout  }) => (
           <TouchableOpacity
             onPress={() => {
             }}
-            style={styles.row}>
+            style={isDarkMode ? stylesDark.row:styles.row}>
             <View style={[styles.rowIcon, { backgroundColor: '#8e8d91' }]}>
               <FeatherIcon color="#fff" name="flag" size={20} />
             </View>
 
-            <Text style={styles.rowLabel}>Report Bug</Text>
+            <Text style={isDarkMode ? stylesDark.rowLabel:styles.rowLabel}>Report Bug</Text>
 
             <View style={styles.rowSpacer} />
 
@@ -259,12 +260,12 @@ const InfoSection = ({ user, form, setForm, handleLogout  }) => (
           <TouchableOpacity
             onPress={() => {
             }}
-            style={styles.row}>
+            style={isDarkMode ? stylesDark.row:styles.row}>
             <View style={[styles.rowIcon, { backgroundColor: '#007afe' }]}>
               <FeatherIcon color="#fff" name="mail" size={20} />
             </View>
 
-            <Text style={styles.rowLabel}>Contact Us</Text>
+            <Text style={isDarkMode ? stylesDark.rowLabel:styles.rowLabel}>Contact Us</Text>
 
             <View style={styles.rowSpacer} />
 
@@ -278,12 +279,12 @@ const InfoSection = ({ user, form, setForm, handleLogout  }) => (
             onPress={() => {
               // handle onPress
             }}
-            style={styles.row}>
+            style={isDarkMode ? stylesDark.row:styles.row}>
             <View style={[styles.rowIcon, { backgroundColor: '#32c759' }]}>
               <FeatherIcon color="#fff" name="star" size={20} />
             </View>
 
-            <Text style={styles.rowLabel}>Rate in App Store</Text>
+            <Text style={isDarkMode ? stylesDark.rowLabel:styles.rowLabel}>Rate in App Store</Text>
 
             <View style={styles.rowSpacer} />
 
@@ -294,7 +295,7 @@ const InfoSection = ({ user, form, setForm, handleLogout  }) => (
           </TouchableOpacity>
           <TouchableOpacity
             onPress={handleLogout}
-            style={styles.row}>
+            style={isDarkMode ? stylesDark.row:styles.row}>
             <View style={[styles.rowIcon, { backgroundColor: 'red' }]}>
               <FeatherIcon color="#fff" name="log-out" size={20} />
             </View>
@@ -306,7 +307,10 @@ const InfoSection = ({ user, form, setForm, handleLogout  }) => (
         </View>
         
       </ScrollView>
-);
+  );
+};
+
+
 
 const PhotosSection = () => {
     const photos = [

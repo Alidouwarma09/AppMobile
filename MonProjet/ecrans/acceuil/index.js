@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
 import { View, Text, TouchableOpacity, Image, FlatList, ScrollView, Alert , Modal, TextInput, Animated, PanResponder, RefreshControl, Pressable, ActivityIndicator  } from 'react-native';
-import styles from './style';
+import styles, { stylesDark } from './style';
 import { Button } from 'react-native-paper';
 import { Utilisateurs } from '../../fakeData/Utilisateur';
 import Icon from 'react-native-vector-icons/Ionicons'; 
@@ -17,6 +17,7 @@ import { Commentaire } from '../../fakeData/Commentaire';
 import { Asset } from 'expo-asset';
 import moment from 'moment';
 import 'moment/locale/fr';
+import { useTheme } from '../../composants/ThemeContext';
 
 export default function Acceuil({ navigation }) {
   const [commentModalVisible, setCommentModalVisible] = useState(false);
@@ -26,6 +27,7 @@ export default function Acceuil({ navigation }) {
   const [pan] = useState(new Animated.ValueXY());
   const [publications, setPublications] = useState([]);
   const [loading, setLoading] = useState(true);
+    const { isDarkMode } = useTheme(); 
 
   const panResponder = PanResponder.create({
     onMoveShouldSetPanResponder: () => true,
@@ -135,7 +137,7 @@ export default function Acceuil({ navigation }) {
   return (
    <View style={{flex:1, width:'100%'}}>
      <ScrollView
-        style={styles.container}
+        style={isDarkMode ? stylesDark.container: styles.container}
         refreshControl={
           <RefreshControl
             progressBackgroundColor='white'

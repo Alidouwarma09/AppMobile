@@ -12,13 +12,15 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Market from '../Market';
 import Storie from '../stories';
 import Profil from '../profil'
+import { useTheme } from '../../composants/ThemeContext';
 
 const BottomTabs = () => {
     const Tab = createBottomTabNavigator();
+    const { isDarkMode } = useTheme(); 
   return (
     <Tab.Navigator
         screenOptions={({route})=>({
-            tabBarStyle:{ paddingBottom:10, height:55, fontWeight: '100',},
+            tabBarStyle:{ paddingBottom:10, height:55, fontWeight: '100',  backgroundColor:isDarkMode?'#000000':'#fff'},
             headerShown:false,
             tabBarActiveTintColor:'#fa1085f0',
         })}

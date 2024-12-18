@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
      View,
      Text, 
@@ -7,6 +7,7 @@ import {
      Alert, 
      Switch,
      ScrollView,
+       Dimensions
      } from 'react-native';
 import { Avatar, Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,6 +19,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import VideoPlayer from 'react-native-video-player';
+const { width } = Dimensions.get('window');
 
 const Profile = ({ navigation }) => {
     const [user, setUser] = useState({
@@ -30,7 +32,8 @@ const Profile = ({ navigation }) => {
         emailNotifications: true,
         pushNotifications: false,
       });
-    const [selectedTab, setSelectedTab] = useState('Info');
+      const [selectedTab, setSelectedTab] = useState('Info');
+      const scrollViewRef = useRef(null);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -54,27 +57,21 @@ const Profile = ({ navigation }) => {
         navigation.navigate('Connexion');
     };
 
-    const handleEditProfile = () => {
-        Alert.alert('Modifier le profil', 'Fonctionnalité de modification à implémenter');
-    };
+    const handleTabPress = (tab, index) => {
+      setSelectedTab(tab);
+      scrollViewRef.current?.scrollTo({ x: index * width, animated: true });
+  };
 
-    const renderContent = () => {
-        switch (selectedTab) {
-            case 'Info':
-                return <InfoSection user={user} form={form} setForm={setForm} />;
-            case 'Photo':
-                return <PhotosSection />;
-            case 'Vidéo':
-                return <VideosSection />;
-            case 'Paramètres':
-                return <SettingsSection handleLogout={handleLogout} />;
-            default:
-                return <InfoSection user={user} />;
-        }
-    };
+  const handleScroll = (event) => {
+      const scrollPosition = event.nativeEvent.contentOffset.x;
+      const activeIndex = Math.round(scrollPosition / width);
+      const tabs = ['Info', 'Photo', 'Vidéo', 'Paramètres'];
+      setSelectedTab(tabs[activeIndex]);
+  };
 
     return (
-        <View style={styles.container}>
+        <ScrollView>
+          <View style={styles.container}>
            <View style={styles.profile}>
         <TouchableOpacity
           onPress={() => {
@@ -98,41 +95,52 @@ const Profile = ({ navigation }) => {
         </TouchableOpacity>
 
         <View>
-          <Text style={styles.profileName}>John Doe</Text>
+          <Text style={styles.profileName}>Wally Darius</Text>
 
           <Text style={styles.profileAddress}>
             123 Maple Street. Anytown, PA 17101
           </Text>
         </View>
-      </View>
-            <View style={styles.tabsContainer}>
-                <TouchableOpacity 
-                    style={[styles.tabButton, selectedTab === 'Info' && styles.selectedTab]} 
-                    onPress={() => setSelectedTab('Info')}
-                >
-                    <Text style={[styles.tabText, selectedTab === 'Info' && styles.selectedTabText]}>Info</Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={[styles.tabButton, selectedTab === 'Photo' && styles.selectedTab]} 
-                    onPress={() => setSelectedTab('Photo')}
-                >
-                    <Text style={[styles.tabText, selectedTab === 'Photo' && styles.selectedTabText]}>Photo</Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={[styles.tabButton, selectedTab === 'Vidéo' && styles.selectedTab]} 
-                    onPress={() => setSelectedTab('Vidéo')}
-                >
-                    <Text style={[styles.tabText, selectedTab === 'Vidéo' && styles.selectedTabText]}>Vidéo</Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={[styles.tabButton, selectedTab === 'Paramètres' && styles.selectedTab]} 
-                    onPress={() => setSelectedTab('Paramètres')}
-                >
-                    <Text style={[styles.tabText, selectedTab === 'Paramètres' && styles.selectedTabText]}>Paramètres</Text>
-                </TouchableOpacity>
+           </View>
+
+
+             <View style={styles.tabsContainer}>
+                {['Info', 'Photo', 'Vidéo', 'Paramètres'].map((tab, index) => (
+                    <TouchableOpacity
+                        key={tab}
+                        style={[styles.tabButton, selectedTab === tab && styles.selectedTab]}
+                        onPress={() => handleTabPress(tab, index)}
+                    >
+                        <Text
+                            style={[styles.tabText, selectedTab === tab && styles.selectedTabText]}>
+                            {tab}
+                        </Text>
+                    </TouchableOpacity>
+                ))}
             </View>
-            {renderContent()}
+            <ScrollView
+                ref={scrollViewRef}
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                onScroll={handleScroll}
+                scrollEventThrottle={16}
+            >
+                <View style={[styles.section, { width }]}>
+                    <InfoSection user={user} form={form} setForm={setForm} handleLogout={handleLogout} />
+                </View>
+                <View style={[styles.section, { width }]}>
+                    <PhotosSection />
+                </View>
+                <View style={[styles.section, { width }]}>
+                    <VideosSection />
+                </View>
+                <View style={[styles.section, { width }]}>
+                    <SettingsSection />
+                </View>
+            </ScrollView>
         </View>
+        </ScrollView>
     );
 };
 
@@ -296,6 +304,7 @@ const InfoSection = ({ user, form, setForm, handleLogout  }) => (
             <View style={styles.rowSpacer} />
           </TouchableOpacity>
         </View>
+        
       </ScrollView>
 );
 
@@ -408,11 +417,8 @@ const VideosSection = () => {
     );
 };
 
-const SettingsSection = ({ handleLogout }) => (
+const SettingsSection = () => (
     <View style={styles.sectionContainer}>
-        <Button onPress={handleLogout} style={styles.logoutButton}>
-            Se déconnecter
-        </Button>
     </View>
 );
 

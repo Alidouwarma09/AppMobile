@@ -27,6 +27,7 @@ export const styles = StyleSheet.create({
     },
     tabButton: {
         paddingVertical: 10,
+        fontWeight:'bold'
     },
     selectedTab: {
         borderBottomWidth: 2,
@@ -37,7 +38,7 @@ export const styles = StyleSheet.create({
         color: '#333',
     },
     selectedTabText: {
-        color: '#007BFF',
+        color: 'pink',
     },
     sectionContainer: {
         flex: 1,

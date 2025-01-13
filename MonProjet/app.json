@@ -5,6 +5,10 @@
     "version": "1.0.0",
     "sdkVersion": "51.0.0",
     "platforms": ["ios", "android"],
+    "notification": {
+      "icon": "./assets/notification.png",
+      "color": "#000000"
+    },
     "orientation": "portrait",
     "splash": {
       "resizeMode": "contain",
@@ -24,7 +28,18 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "versionCode": 1,
+      "package": "com.wally_darius.nom"
+    },
+    "plugins": [
+      "expo-video"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f76ac62f-be32-4ba7-93b2-920cd5239496"
       }
-    }
+    },
+    "owner": "wally_darius"
   }
 }

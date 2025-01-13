@@ -37,6 +37,8 @@ const Connexion = ({ navigation }) => {
             Alert.alert("Erreur", "Veuillez remplir tous les champs");
             return;
         }
+      console.log(process.env.REACT_APP_API_URL);
+
 
         fetch(`${process.env.REACT_APP_API_URL}/Utilisateur/api/connexion/`, {
             method: 'POST',
@@ -70,6 +72,7 @@ const Connexion = ({ navigation }) => {
                 <TouchableOpacity onPress={() => navigation.navigate('Inscription')}>
                     <Text style={styles.formInscrire}>S'inscrire ?</Text>
                 </TouchableOpacity>
+
 
                 <Text style={styles.formTitle}>Connexion</Text>
                 <View style={styles.formItems}>

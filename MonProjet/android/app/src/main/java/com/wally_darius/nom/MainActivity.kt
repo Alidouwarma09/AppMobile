@@ -1,4 +1,4 @@
-package com.monprojet
+package com.wally_darius.nom
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

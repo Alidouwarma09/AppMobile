@@ -1,11 +1,15 @@
 import React from 'react';
-import Routes from './routes/index'; 
-
+import { ThemeProvider } from './composants/ThemeContext/index';
+import  NotificationHandler  from './composants/NotificationHandler/index';
+import Routes from './routes/index';
 
 const App = () => {
   return (
-    <Routes />
+    <ThemeProvider>
+      <NotificationHandler />
+      <Routes />
+    </ThemeProvider>
   );
-}
+};
 
 export default App;

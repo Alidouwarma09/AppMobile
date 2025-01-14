@@ -45,6 +45,7 @@ const NotificationHandler = () => {
     return () => subscription.remove();
   }, []);
   useEffect(() => {
+    console.log('Permission de notification refusée');
     const requestPermissions = async () => {
       const { status } = await Notifications.requestPermissionsAsync();
       if (status !== 'granted') {
@@ -57,7 +58,7 @@ const NotificationHandler = () => {
       });
       console.log('Expo Push Token:', token.data);
       
-      if (token.data) {
+      if (!token.data) {
         // Envoyer le token au backend
         const response = await fetch(`${process.env.REACT_APP_API_URL}Utilisateur/api/send_push_notification/`, {
           method: 'POST',

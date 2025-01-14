@@ -5,6 +5,7 @@ buildscript {
         compileSdkVersion = 34
         targetSdkVersion = 34
         kotlinVersion = "1.9.24"
+        reactNativeVersion = "0.74.5"
     }
     repositories {
         google()
@@ -12,7 +13,7 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:8.1.1")
+        classpath 'com.android.tools.build:gradle:8.2.1'
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("com.facebook.react:react-native-gradle-plugin:0.71.11")
     }
@@ -25,4 +26,10 @@ allprojects {
         maven { url 'https://jitpack.io' }
     }
 }
+tasks.whenTaskAdded { task ->
+    if (task.name == "packageDebugResources") {
+        task.doNotTrackState()
+    }
+}
+
 

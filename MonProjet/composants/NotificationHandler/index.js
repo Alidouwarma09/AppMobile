@@ -17,7 +17,7 @@ Notifications.setNotificationHandler({
     shouldPlaySound: true,
     shouldSetBadge: false,
   }),
-});
+}); 
 
 const NotificationHandler = () => {
   const [showModal, setShowModal] = useState(false);
@@ -30,6 +30,9 @@ const NotificationHandler = () => {
           title: "Bienvenue 👋",
           body: "Appuyez pour voir plus de détails.",
           data: { customData: "info supplémentaire si nécessaire" },
+          icon: require('./notification-icon.png'),
+
+
         },
         trigger: null,
       });
@@ -96,12 +99,12 @@ const NotificationHandler = () => {
         <View style={styles.customView}>
          <View style={styles.header}>
          <Text style={styles.title}>Bienvenue sur notre App 🚀</Text>
-         <Pressable style={styles.close} onPress={close}>
+         <Pressable style={styles.close} onPress={close}> 
           <AntDesignIcon name="closecircle" size={24} color="#333" />
          </Pressable>
          </View>
           <Image
-            source={require('../../assets/coco.png')}
+            source={require('../../assets/img1.png')}
             style={styles.image}
           />
           <Text style={styles.description}>

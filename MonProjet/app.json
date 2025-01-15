@@ -6,9 +6,10 @@
     "sdkVersion": "51.0.0",
     "platforms": ["ios", "android"],
     "notification": {
-      "icon": "./assets/notification.png",
+      "icon": "./assets/notification-icon.png",
       "color": "#000000"
     },
+
     "orientation": "portrait",
     "splash": {
       "resizeMode": "contain",

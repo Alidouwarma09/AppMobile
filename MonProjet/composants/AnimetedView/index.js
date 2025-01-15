@@ -14,7 +14,6 @@ const AnimatedView = ({ children, onSwipeDown, threshold = 300 }) => {
     },
     onPanResponderRelease: (e, gestureState) => {
       if (gestureState.dy > threshold) {
-        // Appeler la fonction onSwipeDown passée en prop si on dépasse le seuil
         if (onSwipeDown) {
           onSwipeDown();
         }

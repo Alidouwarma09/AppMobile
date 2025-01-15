@@ -31,7 +31,7 @@ const ProfilUtilisateur = ({route, navigation}) => {
       <View style={styles.header}>
         <View>
           <TouchableOpacity onPress={handleImagePress}>
-            <Image style={styles.userImage} source={require('../../assets/coco.png')} />
+            <Image style={styles.userImage} source={require('../../assets/img1.png')} />
           </TouchableOpacity>
         </View>
         <View style={styles.headerUserInfo}>
@@ -75,7 +75,7 @@ const ProfilUtilisateur = ({route, navigation}) => {
                 <Icon name="close" size={30} color="#fff" />
               </TouchableOpacity>
             
-                <Image style={styles.fullScreenImage} source={require('../../assets/coco.png')} />
+                <Image style={styles.fullScreenImage} source={require('../../assets/img1.png')} />
           </View>
     </Modal>
 

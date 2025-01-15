@@ -50,7 +50,7 @@ const MessageLIste = ({ navigation }) => {
         return(
           <TouchableOpacity  style={styles.enLigne}  onPress={() => navigation.navigate('Message', {utilisateur})}>
           <View style={styles.imageEndStatutIndicator}>
-            <Image style={styles.userImage} source={require('../../assets/coco.png')} />
+            <Image style={styles.userImage} source={require('../../assets/img1.png')} />
             <Text style={[styles.StatutIndicator, {backgroundColor: utilisateur.isOnline ? '#32b829b5': '#b82929b5'}]}>.</Text>
           </View>
           <Text style={{marginTop:10, marginLeft:10}}>{utilisateur.nom}</Text>
@@ -63,7 +63,7 @@ const MessageLIste = ({ navigation }) => {
         return(
             <View style={styles.scrolleItem} key={utilisateur.id}>
                 <TouchableOpacity onPress={handleImagePress}>
-                <Image style={styles.userImage} source={require('../../assets/coco.png')} onPress={() => setModalVisible(true)}/>
+                <Image style={styles.userImage} source={require('../../assets/img1.png')} onPress={() => setModalVisible(true)}/>
                 </TouchableOpacity>
                <TouchableOpacity onPress={() => navigation.navigate('Message', {utilisateur})}>
                <View>
@@ -92,7 +92,7 @@ const MessageLIste = ({ navigation }) => {
               </View>
                 <View {...panResponder.panHandlers} style={{ width:'100%', alignItems:'center'}}>
                <TouchableOpacity>
-                   <Image source={require('../../assets/coco.png')} style={styles.fullScreenImage}  />
+                   <Image source={require('../../assets/img1.png')} style={styles.fullScreenImage}  />
                </TouchableOpacity>
                </View>
               </Animated.View>

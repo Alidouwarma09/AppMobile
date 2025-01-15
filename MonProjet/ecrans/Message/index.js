@@ -28,7 +28,7 @@ const Message = ({ route, navigation, onSwipeRight, message }) => {
          <View style={styles.header}>
           <TouchableOpacity onPress={Goback}><AntDesignIcon style={styles.footerIcons} name='arrowleft'/></TouchableOpacity>
           <Pressable  onPress={() => navigation.navigate('ProfilUtilisateur', {utilisateur})}>
-          <Image style={styles.headerUserImage} source={require('../../assets/coco.png')}/>
+          <Image style={styles.headerUserImage} source={require('../../assets/img1.png')}/>
           </Pressable>
           <Text style={{fontWeight:'bold'}}>{utilisateur.nom} {utilisateur.prenom}</Text>
         </View>

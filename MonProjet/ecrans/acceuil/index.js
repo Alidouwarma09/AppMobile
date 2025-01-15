@@ -160,7 +160,7 @@ export default function Acceuil({ navigation }) {
         <TouchableOpacity  onPress={() => navigation.navigate('ProfilUtilisateur', {utilisateur})}>
         <View style={styles.scrolleItem} >
         <Text>{utilisateur.nom}</Text>
-        <Image style={styles.userImage} source={require('../../assets/coco.png')} />
+        <Image style={styles.userImage} source={require('../../assets/img1.png')} />
         </View>
        </TouchableOpacity>
       )
@@ -174,7 +174,7 @@ export default function Acceuil({ navigation }) {
               <View style={styles.publicationContainer} key={publication.id}>
               <View style={styles.publicationHeader}>
                 <TouchableOpacity>
-                <Image style={styles.pubUserImage} source={require('../../assets/coco.png')} />
+                <Image style={styles.pubUserImage} source={require('../../assets/img1.png')} />
                 </TouchableOpacity>
                 <Text style={styles.userName}>{publication.userName}</Text>
                 <Text style={styles.pubHeure}>il y a {moment(publication.date_pub).fromNow()} <MaterialCommunityIcons name='hours-24'/></Text>
@@ -243,7 +243,7 @@ export default function Acceuil({ navigation }) {
                           <View style={{ width:'100%', padding:10}}>
                           <View style={{flexDirection:'row', width:'100%'}}>
                           <TouchableOpacity>
-                            <Image style={styles.headerUserImage} source={require('../../assets/coco.png')}/>
+                            <Image style={styles.headerUserImage} source={require('../../assets/img1.png')}/>
                             </TouchableOpacity>
                               <Text style={styles.userName}>{commentaire.userName}</Text>
                               {commentaire.userName=="wally darius" ? <Text style={styles.auteur}>Auteur</Text> : <Text></Text>}
